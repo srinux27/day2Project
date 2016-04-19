@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<body ng-app="ServerDemoModule">
+    <h3>{{"Server Communication Example"}}</h3>
+    <div ng-controller="ServerDemoController">
+        <ol>
+            <li ng-repeat="data in dataFromFile">
+                <td>{{data.ename}}</td>
+            </li>
+        </ol>
+    </div>
+
+    <script src="script/angular.js"></script>
+    <script>
+        var mod = angular.module('ServerDemoModule', []);
+        mod.controller('ServerDemoController', function ($scope, $http) {
+            $http.get('/appdata.json').success(function (data) {
+                $scope.dataFromFile = data;
+            });
+        });
+    </script>
+</body>
+
+</html>
