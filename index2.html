@@ -2,12 +2,15 @@
 <html>
 
 <body>
-    <div id="div1">{{"Module 1"}}</div>
+    <div id="div1" ng-controller="SimpleController as simpleCtrl">
+        <h3>{{simpleCtrl.msg}}</h3>
+        <button ng-click="simpleCtrl.doIt()">Click Me!</button>
+    </div>
     <hr>
-    <div id="div2">{{"Module 2"}}</div>
+    <div id="div2" ng-controller="ScopeController"><h3>{{msg}}</h3></div>
     
     <script src="script/angular.js"></script>
-    <script src="script/demoApp.js"></script>
+    <script src="script/demoApp.min.js"></script>
 </body>
 
 </html>
