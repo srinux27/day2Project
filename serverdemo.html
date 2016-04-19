@@ -6,18 +6,50 @@
     <div ng-controller="ServerDemoController">
         <ol>
             <li ng-repeat="data in dataFromFile">
-                <td>{{data.ename}}</td>
+                <!--{{data.ename}}  // This is for when fetching from file-->
+                {{data.fname}}, {{data.lname}}
             </li>
         </ol>
     </div>
 
+    <hr>
+
+    <div ng-controller="ServerDemoWithResource">
+        <ol>
+            <li ng-repeat="data in dataFromResource">
+                {{data.fname}}, {{data.lname}}
+            </li>
+        </ol>
+        <h3>{{status}}</h3>
+    </div>
+
     <script src="script/angular.js"></script>
+    <script src="script/angular-resource.js"></script>
     <script>
-        var mod = angular.module('ServerDemoModule', []);
+        var mod = angular.module('ServerDemoModule', ['ngResource']);
+        
+        //Using $http object from angular
         mod.controller('ServerDemoController', function ($scope, $http) {
+            /*
+            //File Example - getting data from file in file system
             $http.get('/appdata.json').success(function (data) {
                 $scope.dataFromFile = data;
+            });*/
+            $http.get('http://www.filltext.com/?rows=10&fname={firstName}&lname={lastName}').success(function (data) {
+                $scope.dataFromFile = data;
+            })
+            
+        });
+        
+        
+        //Using $resource object from angular
+        mod.controller('ServerDemoWithResource', function ($scope, $resource) {
+            $scope.dataFromResource = $resource('http://www.filltext.com/?rows=10&fname={firstName}&lname={lastName}').query(function() {
+                $scope.status = 'Success';
+            }, function() {
+                $scope.status = 'Failed';
             });
+
         });
     </script>
 </body>
