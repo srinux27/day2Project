@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="script/angular.js"></script>
+    <script>
+        var m = angular.module('DemoApp', []);
+        //angular manual bootstrap possible only after DOM elements is ready and available
+        //otherise code will fail
+        //use angular.element(DOM-element).ready(callback); for this
+        angular.element(document).ready(function () {
+            angular.bootstrap(document, ['DemoApp']);
+        });
+    </script>
+</head>
+
+
+<body>
+    <h3>{{"Manual Bootstrap Example"}}</h3>
+</body>
+
+</html>
